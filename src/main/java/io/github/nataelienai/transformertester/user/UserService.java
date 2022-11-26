@@ -31,4 +31,21 @@ public class UserService {
     return userRepository.findById(id)
         .orElseThrow(() -> new UserNotFoundException());
   }
+
+  public User update(String id, UserInputDto userInputDto) {
+    User user = userRepository.findById(id)
+        .orElseThrow(() -> new UserNotFoundException());
+
+    String email = userInputDto.getEmail();
+    if (!email.equals(user.getEmail())) {
+      boolean emailUsed = userRepository.existsByEmail(email);
+      if (emailUsed) {
+        throw new EmailAlreadyUsedException(email);
+      }
+    }
+    user.setName(userInputDto.getName());
+    user.setEmail(email);
+    return userRepository.save(user);
+  }
+
 }

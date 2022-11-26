@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -42,6 +43,15 @@ public class UserController {
   @ResponseStatus(HttpStatus.OK)
   public User findById(@PathVariable("id") String id) {
     return userService.findById(id);
+  }
+
+  @PutMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public User update(
+      @PathVariable("id") String id,
+      @Valid @RequestBody UserInputDto userInputDto
+  ) {
+    return userService.update(id, userInputDto);
   }
 
   @ExceptionHandler(EmailAlreadyUsedException.class)
