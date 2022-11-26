@@ -1,7 +1,10 @@
 package io.github.nataelienai.transformertester.user;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +25,7 @@ public class UserController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public User create(@RequestBody UserInputDto userInputDto) {
+  public User create(@Valid @RequestBody UserInputDto userInputDto) {
     return userService.create(userInputDto);
   }
 
@@ -32,4 +35,14 @@ public class UserController {
     return new ErrorResponse(HttpStatus.CONFLICT.value(), exception.getMessage());
   }
 
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+    FieldError fieldError = exception.getFieldError();
+    if (fieldError == null) {
+      return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Validation failed");
+    }
+    String message = fieldError.getDefaultMessage();
+    return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), message);
+  }
 }
