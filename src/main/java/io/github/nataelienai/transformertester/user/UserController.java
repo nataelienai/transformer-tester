@@ -48,11 +48,11 @@ public class UserController {
 
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public User update(
+  public User updateById(
       @PathVariable("id") String id,
       @Valid @RequestBody UserInputDto userInputDto
   ) {
-    return userService.update(id, userInputDto);
+    return userService.updateById(id, userInputDto);
   }
 
   @DeleteMapping("/{id}")
