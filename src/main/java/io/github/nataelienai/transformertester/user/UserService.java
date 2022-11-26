@@ -16,7 +16,7 @@ public class UserService {
   public User create(UserInputDto userInputDto) {
     boolean emailUsed = userRepository.existsByEmail(userInputDto.getEmail());
     if (emailUsed) {
-      throw new EmailAlreadyUsedException();
+      throw new EmailAlreadyUsedException(userInputDto.getEmail());
     }
     User user = new User(userInputDto.getName(), userInputDto.getEmail());
     return userRepository.save(user);
