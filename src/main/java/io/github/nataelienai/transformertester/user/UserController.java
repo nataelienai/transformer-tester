@@ -61,4 +61,10 @@ public class UserController {
     return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), message);
   }
 
+  @ExceptionHandler(UserNotFoundException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public ErrorResponse handleUserNotFoundException(UserNotFoundException exception) {
+    return new ErrorResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage());
+  }
+
 }
