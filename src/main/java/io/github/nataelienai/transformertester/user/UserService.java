@@ -1,5 +1,6 @@
 package io.github.nataelienai.transformertester.user;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,9 @@ public class UserService {
     }
     User user = new User(userInputDto.getName(), userInputDto.getEmail());
     return userRepository.save(user);
+  }
+
+  public List<User> findAll() {
+    return userRepository.findAll();
   }
 }
