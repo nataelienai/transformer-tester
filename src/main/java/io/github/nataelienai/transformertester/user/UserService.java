@@ -48,4 +48,12 @@ public class UserService {
     return userRepository.save(user);
   }
 
+  public void deleteById(String id) {
+    boolean idExists = userRepository.existsById(id);
+    if (!idExists) {
+      throw new UserNotFoundException();
+    }
+    userRepository.deleteById(id);
+  }
+
 }
