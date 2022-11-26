@@ -32,7 +32,7 @@ public class UserService {
         .orElseThrow(() -> new UserNotFoundException());
   }
 
-  public User update(String id, UserInputDto userInputDto) {
+  public User updateById(String id, UserInputDto userInputDto) {
     User user = userRepository.findById(id)
         .orElseThrow(() -> new UserNotFoundException());
 
