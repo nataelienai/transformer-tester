@@ -6,6 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import io.github.nataelienai.transformertester.user.EmailAlreadyUsedException;
 import io.github.nataelienai.transformertester.user.UserNotFoundException;
 
 @RestControllerAdvice
@@ -26,6 +27,12 @@ public class GlobalExceptionHandler {
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ErrorResponse handleUserNotFoundException(UserNotFoundException exception) {
     return new ErrorResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage());
+  }
+
+  @ExceptionHandler(EmailAlreadyUsedException.class)
+  @ResponseStatus(HttpStatus.CONFLICT)
+  public ErrorResponse handleEmailAlreadyUsedException(EmailAlreadyUsedException exception) {
+    return new ErrorResponse(HttpStatus.CONFLICT.value(), exception.getMessage());
   }
 
 }
