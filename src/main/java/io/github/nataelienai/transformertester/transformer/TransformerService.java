@@ -1,5 +1,6 @@
 package io.github.nataelienai.transformertester.transformer;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import io.github.nataelienai.transformertester.user.User;
@@ -33,6 +34,10 @@ public class TransformerService {
         user
     );
     return transformerRepository.save(transformer);
+  }
+
+  public List<Transformer> findAll() {
+    return transformerRepository.findAll();
   }
 
 }
