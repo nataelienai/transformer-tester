@@ -41,4 +41,8 @@ public class TestService {
     return testRepository.findAll();
   }
 
+  public Test findById(String id) {
+    return testRepository.findById(id)
+        .orElseThrow(() -> new TestNotFoundException());
+  }
 }
