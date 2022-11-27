@@ -37,4 +37,8 @@ public class TestService {
     return testRepository.save(test);
   }
 
+  public List<Test> findAll() {
+    return testRepository.findAll();
+  }
+
 }
