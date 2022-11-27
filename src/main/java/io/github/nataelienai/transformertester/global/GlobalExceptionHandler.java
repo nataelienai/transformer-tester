@@ -6,6 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import io.github.nataelienai.transformertester.test.TestNotFoundException;
 import io.github.nataelienai.transformertester.transformer.TransformerNotFoundException;
 import io.github.nataelienai.transformertester.user.EmailAlreadyUsedException;
 import io.github.nataelienai.transformertester.user.UserNotFoundException;
@@ -26,7 +27,8 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler({
       UserNotFoundException.class,
-      TransformerNotFoundException.class
+      TransformerNotFoundException.class,
+      TestNotFoundException.class
   })
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ErrorResponse handleResourceNotFoundException(RuntimeException exception) {
