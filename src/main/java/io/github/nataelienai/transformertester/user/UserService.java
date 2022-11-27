@@ -14,12 +14,12 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public User create(UserInputDto userInputDto) {
-    boolean emailUsed = userRepository.existsByEmail(userInputDto.getEmail());
+  public User create(UserDto userDto) {
+    boolean emailUsed = userRepository.existsByEmail(userDto.getEmail());
     if (emailUsed) {
-      throw new EmailAlreadyUsedException(userInputDto.getEmail());
+      throw new EmailAlreadyUsedException(userDto.getEmail());
     }
-    User user = new User(userInputDto.getName(), userInputDto.getEmail());
+    User user = new User(userDto.getName(), userDto.getEmail());
     return userRepository.save(user);
   }
 
@@ -32,18 +32,18 @@ public class UserService {
         .orElseThrow(() -> new UserNotFoundException());
   }
 
-  public User updateById(String id, UserInputDto userInputDto) {
+  public User updateById(String id, UserDto userDto) {
     User user = userRepository.findById(id)
         .orElseThrow(() -> new UserNotFoundException());
 
-    String email = userInputDto.getEmail();
+    String email = userDto.getEmail();
     if (!email.equals(user.getEmail())) {
       boolean emailUsed = userRepository.existsByEmail(email);
       if (emailUsed) {
         throw new EmailAlreadyUsedException(email);
       }
     }
-    user.setName(userInputDto.getName());
+    user.setName(userDto.getName());
     user.setEmail(email);
     return userRepository.save(user);
   }

@@ -30,8 +30,8 @@ public class UserController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public User create(@Valid @RequestBody UserInputDto userInputDto) {
-    return userService.create(userInputDto);
+  public User create(@Valid @RequestBody UserDto userDto) {
+    return userService.create(userDto);
   }
 
   @GetMapping
@@ -50,9 +50,9 @@ public class UserController {
   @ResponseStatus(HttpStatus.OK)
   public User updateById(
       @PathVariable("id") String id,
-      @Valid @RequestBody UserInputDto userInputDto
+      @Valid @RequestBody UserDto userDto
   ) {
-    return userService.updateById(id, userInputDto);
+    return userService.updateById(id, userDto);
   }
 
   @DeleteMapping("/{id}")

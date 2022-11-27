@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserInputDto {
+public class UserDto {
 
   @NotBlank(message = "Field 'name' must not be blank")
   private String name;
