@@ -46,7 +46,7 @@ public class TestController {
   @ResponseStatus(HttpStatus.OK)
   public Test updateById(
       @PathVariable("id") String id,
-      @RequestBody UpdateTestDto updateTestDto
+      @Valid @RequestBody UpdateTestDto updateTestDto
   ) {
     return testService.updateById(id, updateTestDto);
   }
