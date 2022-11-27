@@ -41,4 +41,13 @@ public class ReportService {
     return reportRepository.findById(id)
         .orElseThrow(() -> new ReportNotFoundException());
   }
+
+  public Report updateById(String id, UpdateReportDto updateReportDto) {
+    Report report = reportRepository.findById(id)
+        .orElseThrow(() -> new ReportNotFoundException());
+    report.setName(updateReportDto.getName());
+    report.setStatus(updateReportDto.getStatus());
+    return reportRepository.save(report);
+  }
+
 }
