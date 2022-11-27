@@ -50,4 +50,12 @@ public class ReportService {
     return reportRepository.save(report);
   }
 
+  public void deleteById(String id) {
+    boolean idExists = reportRepository.existsById(id);
+    if (!idExists) {
+      throw new ReportNotFoundException();
+    }
+    reportRepository.deleteById(id);
+  }
+
 }
