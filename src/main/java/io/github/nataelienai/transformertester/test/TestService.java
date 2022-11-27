@@ -45,4 +45,14 @@ public class TestService {
     return testRepository.findById(id)
         .orElseThrow(() -> new TestNotFoundException());
   }
+
+  public Test updateById(String id, UpdateTestDto updateTestDto) {
+    Test test = testRepository.findById(id)
+        .orElseThrow(() -> new TestNotFoundException());
+    test.setName(updateTestDto.getName());
+    test.setStatus(updateTestDto.getStatus());
+    test.setDurationInSeconds(updateTestDto.getDurationInSeconds());
+    return testRepository.save(test);
+  }
+
 }
