@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import io.github.nataelienai.transformertester.user.ErrorResponse;
+import io.github.nataelienai.transformertester.user.UserNotFoundException;
 
 @RestController
 @RequestMapping("/transformers")
@@ -41,6 +42,12 @@ public class TransformerController {
     }
     String message = fieldError.getDefaultMessage();
     return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), message);
+  }
+
+  @ExceptionHandler(UserNotFoundException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public ErrorResponse handleUserNotFoundException(UserNotFoundException exception) {
+    return new ErrorResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage());
   }
 
 }
