@@ -40,4 +40,8 @@ public class TransformerService {
     return transformerRepository.findAll();
   }
 
+  public Transformer findById(String id) {
+    return transformerRepository.findById(id)
+        .orElseThrow(() -> new TransformerNotFoundException());
+  }
 }
