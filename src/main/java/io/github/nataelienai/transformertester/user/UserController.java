@@ -4,10 +4,7 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,29 +56,6 @@ public class UserController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteById(@PathVariable("id") String id) {
     userService.deleteById(id);
-  }
-
-  @ExceptionHandler(EmailAlreadyUsedException.class)
-  @ResponseStatus(HttpStatus.CONFLICT)
-  public ErrorResponse handleEmailAlreadyUsedException(EmailAlreadyUsedException exception) {
-    return new ErrorResponse(HttpStatus.CONFLICT.value(), exception.getMessage());
-  }
-
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
-    FieldError fieldError = exception.getFieldError();
-    if (fieldError == null) {
-      return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Validation failed");
-    }
-    String message = fieldError.getDefaultMessage();
-    return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), message);
-  }
-
-  @ExceptionHandler(UserNotFoundException.class)
-  @ResponseStatus(HttpStatus.NOT_FOUND)
-  public ErrorResponse handleUserNotFoundException(UserNotFoundException exception) {
-    return new ErrorResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage());
   }
 
 }

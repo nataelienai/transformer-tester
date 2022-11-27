@@ -1,4 +1,4 @@
-package io.github.nataelienai.transformertester.user;
+package io.github.nataelienai.transformertester.global;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
