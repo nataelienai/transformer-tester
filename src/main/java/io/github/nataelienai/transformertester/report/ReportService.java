@@ -37,4 +37,8 @@ public class ReportService {
     return reportRepository.findAll();
   }
 
+  public Report findById(String id) {
+    return reportRepository.findById(id)
+        .orElseThrow(() -> new ReportNotFoundException());
+  }
 }
