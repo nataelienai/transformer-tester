@@ -21,15 +21,15 @@ public class TransformerService {
     this.userRepository = userRepository;
   }
 
-  public Transformer create(CreateTransformerInputDto createTransformerInputDto) {
-    User user = userRepository.findById(createTransformerInputDto.getUserId())
+  public Transformer create(CreateTransformerDto createTransformerDto) {
+    User user = userRepository.findById(createTransformerDto.getUserId())
         .orElseThrow(() -> new UserNotFoundException());
     Transformer transformer = new Transformer(
-        createTransformerInputDto.getName(),
-        createTransformerInputDto.getInternalNumber(),
-        createTransformerInputDto.getTensionClass(),
-        createTransformerInputDto.getPotency(),
-        createTransformerInputDto.getCurrent(),
+        createTransformerDto.getName(),
+        createTransformerDto.getInternalNumber(),
+        createTransformerDto.getTensionClass(),
+        createTransformerDto.getPotency(),
+        createTransformerDto.getCurrent(),
         user
     );
     return transformerRepository.save(transformer);

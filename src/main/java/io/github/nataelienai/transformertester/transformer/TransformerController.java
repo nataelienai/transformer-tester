@@ -28,9 +28,9 @@ public class TransformerController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Transformer create(
-      @Valid @RequestBody CreateTransformerInputDto createTransformerInputDto
+      @Valid @RequestBody CreateTransformerDto createTransformerDto
   ) {
-    return transformerService.create(createTransformerInputDto);
+    return transformerService.create(createTransformerDto);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
