@@ -1,5 +1,6 @@
 package io.github.nataelienai.transformertester.transformer;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +23,9 @@ public class TransformerController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Transformer create(
-      @RequestBody CreateTransformerInputDto createTransformerInputDto
+      @Valid @RequestBody CreateTransformerInputDto createTransformerInputDto
   ) {
     return transformerService.create(createTransformerInputDto);
   }
+
 }
