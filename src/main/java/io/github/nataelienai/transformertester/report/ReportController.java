@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -39,6 +40,15 @@ public class ReportController {
   @ResponseStatus(HttpStatus.OK)
   public Report findById(@PathVariable("id") String id) {
     return reportService.findById(id);
+  }
+
+  @PutMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public Report updateById(
+      @PathVariable("id") String id,
+      @RequestBody UpdateReportDto updateReportDto
+  ) {
+    return reportService.updateById(id, updateReportDto);
   }
 
 }
