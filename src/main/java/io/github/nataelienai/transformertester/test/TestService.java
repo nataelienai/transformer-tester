@@ -55,4 +55,12 @@ public class TestService {
     return testRepository.save(test);
   }
 
+  public void deleteById(String id) {
+    boolean idExists = testRepository.existsById(id);
+    if (!idExists) {
+      throw new TestNotFoundException();
+    }
+    testRepository.deleteById(id);
+  }
+
 }
