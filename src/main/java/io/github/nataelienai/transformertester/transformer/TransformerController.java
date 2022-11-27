@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/transformers")
 public class TransformerController {
 
-  private TransformerService transformerService;
+  private final TransformerService transformerService;
 
   @Autowired
   public TransformerController(TransformerService transformerService) {
@@ -34,6 +35,12 @@ public class TransformerController {
   @ResponseStatus(HttpStatus.OK)
   public List<Transformer> findAll() {
     return transformerService.findAll();
+  }
+
+  @GetMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public Transformer findById(@PathVariable("id") String id) {
+    return transformerService.findById(id);
   }
 
 }
