@@ -24,14 +24,14 @@ public class Transformer {
   private String name;
 
   @Field("internal_number")
-  private double internalNumber;
+  private Double internalNumber;
 
   @Field("tension_class")
-  private double tensionClass;
+  private Double tensionClass;
 
-  private double potency;
+  private Double potency;
 
-  private double current;
+  private Double current;
 
   @CreatedDate
   @Field("created_at")
