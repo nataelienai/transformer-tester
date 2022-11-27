@@ -1,5 +1,6 @@
 package io.github.nataelienai.transformertester.report;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import io.github.nataelienai.transformertester.test.Test;
@@ -30,6 +31,10 @@ public class ReportService {
         test
     );
     return reportRepository.save(report);
+  }
+
+  public List<Report> findAll() {
+    return reportRepository.findAll();
   }
 
 }
