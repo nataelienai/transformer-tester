@@ -44,4 +44,16 @@ public class TransformerService {
     return transformerRepository.findById(id)
         .orElseThrow(() -> new TransformerNotFoundException());
   }
+
+  public Transformer updateById(String id, UpdateTransformerDto updateTransformerDto) {
+    Transformer transformer = transformerRepository.findById(id)
+        .orElseThrow(() -> new TransformerNotFoundException());
+    transformer.setName(updateTransformerDto.getName());
+    transformer.setInternalNumber(updateTransformerDto.getInternalNumber());
+    transformer.setTensionClass(updateTransformerDto.getTensionClass());
+    transformer.setPotency(updateTransformerDto.getPotency());
+    transformer.setCurrent(updateTransformerDto.getCurrent());
+    return transformerRepository.save(transformer);
+  }
+
 }
