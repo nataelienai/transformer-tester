@@ -46,7 +46,7 @@ public class ReportController {
   @ResponseStatus(HttpStatus.OK)
   public Report updateById(
       @PathVariable("id") String id,
-      @RequestBody UpdateReportDto updateReportDto
+      @Valid @RequestBody UpdateReportDto updateReportDto
   ) {
     return reportService.updateById(id, updateReportDto);
   }
