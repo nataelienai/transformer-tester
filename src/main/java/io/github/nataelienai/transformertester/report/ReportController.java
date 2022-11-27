@@ -1,5 +1,6 @@
 package io.github.nataelienai.transformertester.report;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class ReportController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Report create(@RequestBody CreateReportDto createReportDto) {
+  public Report create(@Valid @RequestBody CreateReportDto createReportDto) {
     return reportService.create(createReportDto);
   }
 
