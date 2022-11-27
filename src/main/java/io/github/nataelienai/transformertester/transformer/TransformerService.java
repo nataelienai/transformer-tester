@@ -56,4 +56,11 @@ public class TransformerService {
     return transformerRepository.save(transformer);
   }
 
+  public void deleteById(String id) {
+    boolean idExists = transformerRepository.existsById(id);
+    if (!idExists) {
+      throw new TransformerNotFoundException();
+    }
+    transformerRepository.deleteById(id);
+  }
 }
