@@ -43,3 +43,8 @@ api    | 2022-11-28 00:11:03.865  INFO 1 --- [           main] i.g.n.t.Transform
 ```
 
 - Para encerrar, pressione as teclas `Ctrl + C` no terminal.
+
+
+# Documentação da API
+
+Com a aplicação já em execução, você pode abrir a documentação da API pelo seu navegador acessando a URL `http://localhost:8080/api-docs`.
