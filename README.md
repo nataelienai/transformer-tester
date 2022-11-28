@@ -9,7 +9,7 @@ Em poucas palavras, é possível criar, buscar, atualizar e remover usuários, t
 
 - **Linguagem:** Java 11.
 - **Ferramentas:** Maven, Docker e Git.
-- **Frameworks, bibliotecas e plugins:** Spring Boot, Spring Data MongoDB, Spring Boot DevTools, Hibernate Validator e Lombok.
+- **Frameworks, bibliotecas e plugins:** Spring Boot, Spring Data MongoDB, Spring Boot DevTools, Hibernate Validator, Lombok e springdoc-openapi (OpenAPI 3 + Swagger + Spring).
 - **Banco de dados:** MongoDB.
 
 
@@ -43,3 +43,8 @@ api    | 2022-11-28 00:11:03.865  INFO 1 --- [           main] i.g.n.t.Transform
 ```
 
 - Para encerrar, pressione as teclas `Ctrl + C` no terminal.
+
+
+# Documentação da API
+
+Com a aplicação já em execução, você pode abrir a documentação da API pelo seu navegador acessando a URL `http://localhost:8080/api-docs`.

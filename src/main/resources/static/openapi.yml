@@ -1,0 +1,1963 @@
+openapi: 3.0.1
+info:
+  title: Transformer Tester
+  version: 0.0.1-SNAPSHOT
+servers:
+- url: http://localhost:8080
+  description: API base URL
+paths:
+  /users:
+    post:
+      tags:
+      - User
+      summary: "Create a user."
+      requestBody:
+        description: "Data to create a user."
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+            examples:
+              example:
+                summary: "Request body example"
+                value:
+                  name: "john"
+                  email: "john@email.com"
+      responses:
+        "201":
+          description: "User created successfully." 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    id: "507f1f77bcf86cd799439011"
+                    name: "john"
+                    email: "john@email.com"
+                    createdAt: "2022-11-07T20:00:00.000Z"
+                    updatedAt: "2022-11-08T15:00:00.000Z"
+        "400":
+          description: "Invalid request format."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 400
+                    message: "Field 'name' must not be blank"
+        "409":
+          description: "The request conflicted with the resource on the server."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 409
+                    message: "Email address 'user@email.com' is already being used"
+    get:
+      tags:
+      - User
+      summary: "List all users."
+      responses:
+        "200":
+          description: "Users returned successfully."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    createdAt:
+                      type: string
+                      format: date-time
+                    updatedAt:
+                      type: string
+                      format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    - allOf:
+                      - id: "507f1f77bcf86cd799439011"
+                        name: "john"
+                        email: "john@email.com"
+                        createdAt: "2022-11-07T20:00:00.000Z"
+                        updatedAt: "2022-11-08T15:00:00.000Z"
+                    - allOf:
+                      - id: "50779977fbc86cdf1f739022"
+                        name: "jane"
+                        email: "jane@email.com"
+                        createdAt: "2022-11-09T20:00:00.000Z"
+                        updatedAt: "2022-11-10T15:00:00.000Z"
+  /users/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: "The id of the user."
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - User
+      summary: "Get a user by its id."
+      responses:
+        "200":
+          description: "User returned successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    id: "507f1f77bcf86cd799439011"
+                    name: "john"
+                    email: "john@email.com"
+                    createdAt: "2022-11-07T20:00:00.000Z"
+                    updatedAt: "2022-11-08T15:00:00.000Z"
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "User not found"
+    put:
+      tags:
+      - User
+      summary: "Update a user by its id."
+      requestBody:
+        description: "Data to update a user."
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+            examples:
+              example:
+                summary: "Request body example"
+                value:
+                  name: "john"
+                  email: "john@email.com"
+      responses:
+        "200":
+          description: "Drone updated successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    id: "507f1f77bcf86cd799439011"
+                    name: "john"
+                    email: "john@email.com"
+                    createdAt: "2022-11-07T20:00:00.000Z"
+                    updatedAt: "2022-11-08T15:00:00.000Z"
+        "400":
+          description: "Invalid request format."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 400
+                    message: "Field 'name' must not be blank"
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "User not found"
+    delete:
+      tags:
+      - User
+      summary: "Delete a user by its id."
+      responses:
+        "204":
+          description: "User deleted successfully."
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "User not found"
+  /transformers:
+    post:
+      tags:
+      - Transformer
+      summary: "Create a transformer."
+      requestBody:
+        description: "Data to create a transformer."
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                internalNumber:
+                  type: number
+                  format: double
+                tensionClass:
+                  type: number
+                  format: double
+                potency:
+                  type: number
+                  format: double
+                current:
+                  type: number
+                  format: double
+                userId:
+                  type: string
+            examples:
+              example:
+                summary: "Request body example"
+                value:
+                  name: "transformer 1"
+                  internalNumber: 15.5
+                  tensionClass: 20.1
+                  potency: 11.2
+                  current: 30.2
+                  userId: "507f1f77bcf86cd799439011"
+      responses:
+        "201":
+          description: "Transformer created successfully." 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  internalNumber:
+                    type: number
+                    format: double
+                  tensionClass:
+                    type: number
+                    format: double
+                  potency:
+                    type: number
+                    format: double
+                  current:
+                    type: number
+                    format: double
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    id: "507f1f77bcf86cd799439012"
+                    name: "transformer 1"
+                    internalNumber: 15.5
+                    tensionClass: 20.1
+                    potency: 11.2
+                    current: 30.2
+                    createdAt: "2022-11-07T22:00:00.000Z"
+                    updatedAt: "2022-11-08T17:00:00.000Z"
+                    user:
+                      id: "507f1f77bcf86cd799439011"
+                      name: "john"
+                      email: "john@email.com"
+                      createdAt: "2022-11-07T20:00:00.000Z"
+                      updatedAt: "2022-11-08T15:00:00.000Z"
+        "400":
+          description: "Invalid request format."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 400
+                    message: "Field 'name' must not be blank"
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "User not found"
+    get:
+      tags:
+      - Transformer
+      summary: "List all transformers."
+      responses:
+        "200":
+          description: "Transformers returned successfully."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    internalNumber:
+                      type: number
+                      format: double
+                    tensionClass:
+                      type: number
+                      format: double
+                    potency:
+                      type: number
+                      format: double
+                    current:
+                      type: number
+                      format: double
+                    createdAt:
+                      type: string
+                      format: date-time
+                    updatedAt:
+                      type: string
+                      format: date-time
+                    user:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        email:
+                          type: string
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    - allOf:
+                      - id: "507f1f77bcf86cd799439012"
+                        name: "transformer 1"
+                        internalNumber: 15.5
+                        tensionClass: 20.1
+                        potency: 11.2
+                        current: 30.2
+                        createdAt: "2022-11-07T22:00:00.000Z"
+                        updatedAt: "2022-11-08T17:00:00.000Z"
+                        user:
+                          id: "507f1f77bcf86cd799439011"
+                          name: "john"
+                          email: "john@email.com"
+                          createdAt: "2022-11-07T20:00:00.000Z"
+                          updatedAt: "2022-11-08T15:00:00.000Z"
+                    - allOf:
+                      - id: "507f1f77bcf86cd799439013"
+                        name: "transformer 2"
+                        internalNumber: 31.0
+                        tensionClass: 40.2
+                        potency: 22.4
+                        current: 60.4
+                        createdAt: "2022-11-07T23:00:00.000Z"
+                        updatedAt: "2022-11-08T18:00:00.000Z"
+                        user:
+                          id: "507f1f77bcf86cd799439011"
+                          name: "john"
+                          email: "john@email.com"
+                          createdAt: "2022-11-07T20:00:00.000Z"
+                          updatedAt: "2022-11-08T15:00:00.000Z"
+  /transformers/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: "The id of the transformer."
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Transformer
+      summary: "Get a transformer by its id."
+      responses:
+        "200":
+          description: "Transformer returned successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  internalNumber:
+                    type: number
+                    format: double
+                  tensionClass:
+                    type: number
+                    format: double
+                  potency:
+                    type: number
+                    format: double
+                  current:
+                    type: number
+                    format: double
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    id: "507f1f77bcf86cd799439012"
+                    name: "transformer 1"
+                    internalNumber: 15.5
+                    tensionClass: 20.1
+                    potency: 11.2
+                    current: 30.2
+                    createdAt: "2022-11-07T22:00:00.000Z"
+                    updatedAt: "2022-11-08T17:00:00.000Z"
+                    user:
+                      id: "507f1f77bcf86cd799439011"
+                      name: "john"
+                      email: "john@email.com"
+                      createdAt: "2022-11-07T20:00:00.000Z"
+                      updatedAt: "2022-11-08T15:00:00.000Z"
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "Transformer not found"
+    put:
+      tags:
+      - Transformer
+      summary: "Update a transformer by its id."
+      requestBody:
+        description: "Data to update a transformer."
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                internalNumber:
+                  type: number
+                  format: double
+                tensionClass:
+                  type: number
+                  format: double
+                potency:
+                  type: number
+                  format: double
+                current:
+                  type: number
+                  format: double
+            examples:
+              example:
+                summary: "Request body example"
+                value:
+                  name: "transformer 1"
+                  internalNumber: 15.5
+                  tensionClass: 20.1
+                  potency: 11.2
+                  current: 30.2
+      responses:
+        "200":
+          description: "Transformer updated successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  internalNumber:
+                    type: number
+                    format: double
+                  tensionClass:
+                    type: number
+                    format: double
+                  potency:
+                    type: number
+                    format: double
+                  current:
+                    type: number
+                    format: double
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    id: "507f1f77bcf86cd799439012"
+                    name: "transformer 1"
+                    internalNumber: 15.5
+                    tensionClass: 20.1
+                    potency: 11.2
+                    current: 30.2
+                    createdAt: "2022-11-07T22:00:00.000Z"
+                    updatedAt: "2022-11-08T17:00:00.000Z"
+                    user:
+                      id: "507f1f77bcf86cd799439011"
+                      name: "john"
+                      email: "john@email.com"
+                      createdAt: "2022-11-07T20:00:00.000Z"
+                      updatedAt: "2022-11-08T15:00:00.000Z"
+        "400":
+          description: "Invalid request format."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 400
+                    message: "Field 'name' must not be blank"
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "Transformer not found"
+    delete:
+      tags:
+      - Transformer
+      summary: "Delete a transformer by its id."
+      responses:
+        "204":
+          description: "Transformer deleted successfully."
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "Transformer not found"
+  /tests:
+    post:
+      tags:
+      - Test
+      summary: "Create a test."
+      requestBody:
+        description: "Data to create a test."
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                status:
+                  type: string
+                durationInSeconds:
+                  type: integer
+                  format: int64
+                transformerIds:
+                  type: array
+                  items:
+                    type: string
+            examples:
+              example:
+                summary: "Request body example"
+                value:
+                  name: "test 1"
+                  status: "started"
+                  durationInSeconds: 10
+                  transformerIds:
+                    - "507f1f77bcf86cd799439012"
+      responses:
+        "201":
+          description: "Test created successfully." 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  status:
+                    type: string
+                  durationInSeconds:
+                    type: integer
+                    format: int64
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  transformers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        internalNumber:
+                          type: number
+                          format: double
+                        tensionClass:
+                          type: number
+                          format: double
+                        potency:
+                          type: number
+                          format: double
+                        current:
+                          type: number
+                          format: double
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            email:
+                              type: string
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    id: "507f1f77bcf86cd799439020"
+                    name: "test 1"
+                    status: "started"
+                    durationInSeconds: 10
+                    createdAt: "2022-11-07T23:00:00.000Z"
+                    updatedAt: "2022-11-07T23:00:00.000Z"
+                    transformers:
+                      - id: "507f1f77bcf86cd799439012"
+                        name: "transformer 1"
+                        internalNumber: 15.5
+                        tensionClass: 20.1
+                        potency: 11.2
+                        current: 30.2
+                        createdAt: "2022-11-07T22:00:00.000Z"
+                        updatedAt: "2022-11-08T17:00:00.000Z"
+                        user:
+                          id: "507f1f77bcf86cd799439011"
+                          name: "john"
+                          email: "john@email.com"
+                          createdAt: "2022-11-07T20:00:00.000Z"
+                          updatedAt: "2022-11-08T15:00:00.000Z"
+        "400":
+          description: "Invalid request format."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 400
+                    message: "Field 'name' must not be blank"
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "Transformer not found"
+    get:
+      tags:
+      - Test
+      summary: "List all tests."
+      responses:
+        "200":
+          description: "Tests returned successfully."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    status:
+                      type: string
+                    durationInSeconds:
+                      type: integer
+                      format: int64
+                    createdAt:
+                      type: string
+                      format: date-time
+                    updatedAt:
+                      type: string
+                      format: date-time
+                    transformers:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                          internalNumber:
+                            type: number
+                            format: double
+                          tensionClass:
+                            type: number
+                            format: double
+                          potency:
+                            type: number
+                            format: double
+                          current:
+                            type: number
+                            format: double
+                          createdAt:
+                            type: string
+                            format: date-time
+                          updatedAt:
+                            type: string
+                            format: date-time
+                          user:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              name:
+                                type: string
+                              email:
+                                type: string
+                              createdAt:
+                                type: string
+                                format: date-time
+                              updatedAt:
+                                type: string
+                                format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    - allOf:
+                      - id: "507f1f77bcf86cd799439020"
+                        name: "test 1"
+                        status: "started"
+                        durationInSeconds: 10
+                        createdAt: "2022-11-07T23:00:00.000Z"
+                        updatedAt: "2022-11-07T23:00:00.000Z"
+                        transformers:
+                          - id: "507f1f77bcf86cd799439012"
+                            name: "transformer 1"
+                            internalNumber: 15.5
+                            tensionClass: 20.1
+                            potency: 11.2
+                            current: 30.2
+                            createdAt: "2022-11-07T22:00:00.000Z"
+                            updatedAt: "2022-11-08T17:00:00.000Z"
+                            user:
+                              id: "507f1f77bcf86cd799439011"
+                              name: "john"
+                              email: "john@email.com"
+                              createdAt: "2022-11-07T20:00:00.000Z"
+                              updatedAt: "2022-11-08T15:00:00.000Z"
+  /tests/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: "The id of the test."
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Test
+      summary: "Get a test by its id."
+      responses:
+        "200":
+          description: "Test returned successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  status:
+                    type: string
+                  durationInSeconds:
+                    type: integer
+                    format: int64
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  transformers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        internalNumber:
+                          type: number
+                          format: double
+                        tensionClass:
+                          type: number
+                          format: double
+                        potency:
+                          type: number
+                          format: double
+                        current:
+                          type: number
+                          format: double
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            email:
+                              type: string
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    id: "507f1f77bcf86cd799439020"
+                    name: "test 1"
+                    status: "started"
+                    durationInSeconds: 10
+                    createdAt: "2022-11-07T23:00:00.000Z"
+                    updatedAt: "2022-11-07T23:00:00.000Z"
+                    transformers:
+                      - id: "507f1f77bcf86cd799439012"
+                        name: "transformer 1"
+                        internalNumber: 15.5
+                        tensionClass: 20.1
+                        potency: 11.2
+                        current: 30.2
+                        createdAt: "2022-11-07T22:00:00.000Z"
+                        updatedAt: "2022-11-08T17:00:00.000Z"
+                        user:
+                          id: "507f1f77bcf86cd799439011"
+                          name: "john"
+                          email: "john@email.com"
+                          createdAt: "2022-11-07T20:00:00.000Z"
+                          updatedAt: "2022-11-08T15:00:00.000Z"
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "Test not found"
+    put:
+      tags:
+      - Test
+      summary: "Update a test by its id."
+      requestBody:
+        description: "Data to update a test."
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                status:
+                  type: string
+                durationInSeconds:
+                  type: integer
+                  format: int64
+            examples:
+              example:
+                summary: "Request body example"
+                value:
+                  name: "test 1"
+                  status: "finished"
+                  durationInSeconds: 30
+      responses:
+        "200":
+          description: "Test updated successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  status:
+                    type: string
+                  durationInSeconds:
+                    type: integer
+                    format: int64
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  transformers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        internalNumber:
+                          type: number
+                          format: double
+                        tensionClass:
+                          type: number
+                          format: double
+                        potency:
+                          type: number
+                          format: double
+                        current:
+                          type: number
+                          format: double
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            email:
+                              type: string
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    id: "507f1f77bcf86cd799439020"
+                    name: "test 1"
+                    status: "finished"
+                    durationInSeconds: 30
+                    createdAt: "2022-11-07T23:00:00.000Z"
+                    updatedAt: "2022-11-07T23:00:00.000Z"
+                    transformers:
+                      - id: "507f1f77bcf86cd799439012"
+                        name: "transformer 1"
+                        internalNumber: 15.5
+                        tensionClass: 20.1
+                        potency: 11.2
+                        current: 30.2
+                        createdAt: "2022-11-07T22:00:00.000Z"
+                        updatedAt: "2022-11-08T17:00:00.000Z"
+                        user:
+                          id: "507f1f77bcf86cd799439011"
+                          name: "john"
+                          email: "john@email.com"
+                          createdAt: "2022-11-07T20:00:00.000Z"
+                          updatedAt: "2022-11-08T15:00:00.000Z"
+        "400":
+          description: "Invalid request format."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 400
+                    message: "Field 'name' must not be blank"
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "Test not found"
+    delete:
+      tags:
+      - Test
+      summary: "Delete a test by its id."
+      responses:
+        "204":
+          description: "Test deleted successfully."
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "Test not found"
+  /reports:
+    post:
+      tags:
+      - Report
+      summary: "Create a report."
+      requestBody:
+        description: "Data to create a report."
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                status:
+                  type: string
+                test:
+                  type: string
+            examples:
+              example:
+                summary: "Request body example"
+                value:
+                  name: "report 1"
+                  status: "in production"
+                  testId: "507f1f77bcf86cd799439020"
+      responses:
+        "201":
+          description: "Report created successfully." 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  status:
+                    type: string
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  test:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      status:
+                        type: string
+                      durationInSeconds:
+                        type: integer
+                        format: int64
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+                      transformers:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            internalNumber:
+                              type: number
+                              format: double
+                            tensionClass:
+                              type: number
+                              format: double
+                            potency:
+                              type: number
+                              format: double
+                            current:
+                              type: number
+                              format: double
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+                            user:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                name:
+                                  type: string
+                                email:
+                                  type: string
+                                createdAt:
+                                  type: string
+                                  format: date-time
+                                updatedAt:
+                                  type: string
+                                  format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    id: "507f1f77bcf86cd799439030"
+                    name: "report 1"
+                    status: "in production"
+                    createdAt: "2022-11-07T23:30:00.000Z"
+                    updatedAt: "2022-11-07T23:30:00.000Z"
+                    test:
+                      id: "507f1f77bcf86cd799439020"
+                      name: "test 1"
+                      status: "started"
+                      durationInSeconds: 10
+                      createdAt: "2022-11-07T23:00:00.000Z"
+                      updatedAt: "2022-11-07T23:00:00.000Z"
+                      transformers:
+                        - id: "507f1f77bcf86cd799439012"
+                          name: "transformer 1"
+                          internalNumber: 15.5
+                          tensionClass: 20.1
+                          potency: 11.2
+                          current: 30.2
+                          createdAt: "2022-11-07T22:00:00.000Z"
+                          updatedAt: "2022-11-08T17:00:00.000Z"
+                          user:
+                            id: "507f1f77bcf86cd799439011"
+                            name: "john"
+                            email: "john@email.com"
+                            createdAt: "2022-11-07T20:00:00.000Z"
+                            updatedAt: "2022-11-08T15:00:00.000Z"
+        "400":
+          description: "Invalid request format."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 400
+                    message: "Field 'name' must not be blank"
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "Test not found"
+    get:
+      tags:
+      - Report
+      summary: "List all reports."
+      responses:
+        "200":
+          description: "Reports returned successfully."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    status:
+                      type: string
+                    createdAt:
+                      type: string
+                      format: date-time
+                    updatedAt:
+                      type: string
+                      format: date-time
+                    test:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        status:
+                          type: string
+                        durationInSeconds:
+                          type: integer
+                          format: int64
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        transformers:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              name:
+                                type: string
+                              internalNumber:
+                                type: number
+                                format: double
+                              tensionClass:
+                                type: number
+                                format: double
+                              potency:
+                                type: number
+                                format: double
+                              current:
+                                type: number
+                                format: double
+                              createdAt:
+                                type: string
+                                format: date-time
+                              updatedAt:
+                                type: string
+                                format: date-time
+                              user:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  email:
+                                    type: string
+                                  createdAt:
+                                    type: string
+                                    format: date-time
+                                  updatedAt:
+                                    type: string
+                                    format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    - allOf:
+                      - id: "507f1f77bcf86cd799439030"
+                        name: "report 1"
+                        status: "in production"
+                        createdAt: "2022-11-07T23:30:00.000Z"
+                        updatedAt: "2022-11-07T23:30:00.000Z"
+                        test:
+                          id: "507f1f77bcf86cd799439020"
+                          name: "test 1"
+                          status: "started"
+                          durationInSeconds: 10
+                          createdAt: "2022-11-07T23:00:00.000Z"
+                          updatedAt: "2022-11-07T23:00:00.000Z"
+                          transformers:
+                            - id: "507f1f77bcf86cd799439012"
+                              name: "transformer 1"
+                              internalNumber: 15.5
+                              tensionClass: 20.1
+                              potency: 11.2
+                              current: 30.2
+                              createdAt: "2022-11-07T22:00:00.000Z"
+                              updatedAt: "2022-11-08T17:00:00.000Z"
+                              user:
+                                id: "507f1f77bcf86cd799439011"
+                                name: "john"
+                                email: "john@email.com"
+                                createdAt: "2022-11-07T20:00:00.000Z"
+                                updatedAt: "2022-11-08T15:00:00.000Z"
+  /reports/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: "The id of the report."
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Report
+      summary: "Get a report by its id."
+      responses:
+        "200":
+          description: "Report returned successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  status:
+                    type: string
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  test:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      status:
+                        type: string
+                      durationInSeconds:
+                        type: integer
+                        format: int64
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+                      transformers:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            internalNumber:
+                              type: number
+                              format: double
+                            tensionClass:
+                              type: number
+                              format: double
+                            potency:
+                              type: number
+                              format: double
+                            current:
+                              type: number
+                              format: double
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+                            user:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                name:
+                                  type: string
+                                email:
+                                  type: string
+                                createdAt:
+                                  type: string
+                                  format: date-time
+                                updatedAt:
+                                  type: string
+                                  format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    id: "507f1f77bcf86cd799439030"
+                    name: "report 1"
+                    status: "in production"
+                    createdAt: "2022-11-07T23:30:00.000Z"
+                    updatedAt: "2022-11-07T23:30:00.000Z"
+                    test:
+                      id: "507f1f77bcf86cd799439020"
+                      name: "test 1"
+                      status: "started"
+                      durationInSeconds: 10
+                      createdAt: "2022-11-07T23:00:00.000Z"
+                      updatedAt: "2022-11-07T23:00:00.000Z"
+                      transformers:
+                        - id: "507f1f77bcf86cd799439012"
+                          name: "transformer 1"
+                          internalNumber: 15.5
+                          tensionClass: 20.1
+                          potency: 11.2
+                          current: 30.2
+                          createdAt: "2022-11-07T22:00:00.000Z"
+                          updatedAt: "2022-11-08T17:00:00.000Z"
+                          user:
+                            id: "507f1f77bcf86cd799439011"
+                            name: "john"
+                            email: "john@email.com"
+                            createdAt: "2022-11-07T20:00:00.000Z"
+                            updatedAt: "2022-11-08T15:00:00.000Z"
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "Report not found"
+    put:
+      tags:
+      - Report
+      summary: "Update a report by its id."
+      requestBody:
+        description: "Data to update a report."
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                status:
+                  type: string
+            examples:
+              example:
+                summary: "Request body example"
+                value:
+                  name: "report 1"
+                  status: "finished"
+      responses:
+        "200":
+          description: "Report updated successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  status:
+                    type: string
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  test:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      status:
+                        type: string
+                      durationInSeconds:
+                        type: integer
+                        format: int64
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+                      transformers:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            internalNumber:
+                              type: number
+                              format: double
+                            tensionClass:
+                              type: number
+                              format: double
+                            potency:
+                              type: number
+                              format: double
+                            current:
+                              type: number
+                              format: double
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+                            user:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                name:
+                                  type: string
+                                email:
+                                  type: string
+                                createdAt:
+                                  type: string
+                                  format: date-time
+                                updatedAt:
+                                  type: string
+                                  format: date-time
+              examples:
+                example:
+                  summary: "Response body example"
+                  value:
+                    id: "507f1f77bcf86cd799439030"
+                    name: "report 1"
+                    status: "finished"
+                    createdAt: "2022-11-07T23:30:00.000Z"
+                    updatedAt: "2022-11-07T23:45:00.000Z"
+                    test:
+                      id: "507f1f77bcf86cd799439020"
+                      name: "test 1"
+                      status: "started"
+                      durationInSeconds: 10
+                      createdAt: "2022-11-07T23:00:00.000Z"
+                      updatedAt: "2022-11-07T23:00:00.000Z"
+                      transformers:
+                        - id: "507f1f77bcf86cd799439012"
+                          name: "transformer 1"
+                          internalNumber: 15.5
+                          tensionClass: 20.1
+                          potency: 11.2
+                          current: 30.2
+                          createdAt: "2022-11-07T22:00:00.000Z"
+                          updatedAt: "2022-11-08T17:00:00.000Z"
+                          user:
+                            id: "507f1f77bcf86cd799439011"
+                            name: "john"
+                            email: "john@email.com"
+                            createdAt: "2022-11-07T20:00:00.000Z"
+                            updatedAt: "2022-11-08T15:00:00.000Z"
+        "400":
+          description: "Invalid request format."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 400
+                    message: "Field 'name' must not be blank"
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "Report not found"
+    delete:
+      tags:
+      - Report
+      summary: "Delete a report by its id."
+      responses:
+        "204":
+          description: "Report deleted successfully."
+        "404":
+          description: "Requested resource was not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              examples:
+                example:
+                  summary: "Error response example"
+                  value:
+                    status: 404
+                    message: "Report not found"
