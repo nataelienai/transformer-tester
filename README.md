@@ -9,7 +9,7 @@ Em poucas palavras, é possível criar, buscar, atualizar e remover usuários, t
 
 - **Linguagem:** Java 11.
 - **Ferramentas:** Maven, Docker e Git.
-- **Frameworks, bibliotecas e plugins:** Spring Boot, Spring Data MongoDB, Spring Boot DevTools, Hibernate Validator e Lombok.
+- **Frameworks, bibliotecas e plugins:** Spring Boot, Spring Data MongoDB, Spring Boot DevTools, Hibernate Validator, Lombok e springdoc-openapi (OpenAPI 3 + Swagger + Spring).
 - **Banco de dados:** MongoDB.
 
 
