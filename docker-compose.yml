@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  api:
+    container_name: api
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=mongo
+    networks:
+      - api_db
+    depends_on:
+      mongo:
+        condition: service_healthy
+  mongo:
+    container_name: mongo
+    image: mongo:5.0
+    ports:
+      - 27017:27017
+    volumes:
+      - db_data:/data/db
+    networks:
+      - api_db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand('ping').ok", "--quiet"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+volumes:
+  db_data: {}
+networks:
+  api_db: {}
